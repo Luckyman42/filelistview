@@ -1,13 +1,20 @@
 package com.example.filelistview.api.model;
 
 
+import jakarta.persistence.*;
+
 import java.util.Date;
 
+@Entity
+@Table(name = "history")
 public class History {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String Who;
     private Integer FileNum;
     private Integer MistakeNum;
-    private Date When;
+    private Date RequestTime;
     private String Result;
 
 
@@ -18,12 +25,12 @@ public class History {
     public void setWho(String who) {
         Who = who;
     }
-    public Date getWhen() {
-        return When;
+    public Date getRequestTime() {
+        return RequestTime;
     }
 
-    public void setWhen(Date when) {
-        When = when;
+    public void setRequestTime(Date RequestTime) {
+        RequestTime = RequestTime;
     }
 
     public String getResult() {
@@ -48,5 +55,13 @@ public class History {
 
     public void setMistakeNum(Integer mistakeNum) {
         MistakeNum = mistakeNum;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
