@@ -1,18 +1,28 @@
 package com.example.filelistview.services;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
+import org.springframework.util.ResourceUtils;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Service
 public class DummyFileGenerator {
+    public void DeleteDummyFiles(String path){
+         new File(path).deleteOnExit();
+    }
     private void CreateFile(String path, String fileName, String parent, String children) {
         try {
             FileWriter fileWriter = new FileWriter(path + fileName);
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.printf("P:%s\n", parent);
             printWriter.printf("C:%s", children);
+            printWriter.close();
             printWriter.close();
         } catch (IOException e) {
             System.out.println("Something went wrong with file creation");
@@ -34,12 +44,19 @@ public class DummyFileGenerator {
     }
 
     public String GenerateDummyFiles(Integer numbers, Integer mistakes) {
-        String path = "src/main/resources/generatedfiles/";
+        String path;
+        try {
+            path = Files.createTempDirectory("generatedFiles").toFile().getAbsolutePath() + "\\";
+        }catch (java.io.IOException e){
+            return  "";
+        }
         if(numbers < 1 && mistakes < 1) {
             return path;
         }
 
         int length = (int) Math.ceil(Math.log(numbers + mistakes) / Math.log(26));
+        if(length == 0) length = 1;
+
         Set<String> filenames = new HashSet<String>();
         while(filenames.size() < numbers + mistakes) {
             filenames.add(GetRandomString(length) + ".txt");
@@ -66,12 +83,4 @@ public class DummyFileGenerator {
         }
         return path;
     }
-
-    public void DeleteDummyFiles(String path){
-        File folder = new File(path);
-        for(File file : folder.listFiles()) {
-            file.delete();
-        }
-    }
-
 }

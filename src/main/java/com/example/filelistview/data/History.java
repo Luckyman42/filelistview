@@ -11,6 +11,7 @@ public class History {
     private Integer FileNum;
     private Integer MistakeNum;
     private long RequestTime;
+    @Column(columnDefinition = "text")
     private String Result;
 
 
