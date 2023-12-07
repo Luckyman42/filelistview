@@ -4,6 +4,7 @@ import com.example.filelistview.services.DummyFileGenerator;
 import com.example.filelistview.services.HistoryService;
 import com.example.filelistview.services.ListViewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,11 +22,17 @@ public class ResultController {
     @Autowired
     DummyFileGenerator dummyFileGenerator;
 
+    @Autowired
+    private Environment environment;
+
     @GetMapping("result")
     public String GetResult (@RequestParam Integer n, @RequestParam Integer m){
         History currentHistory =  new History();
         currentHistory.setRequestTime( new Date().getTime());
-        currentHistory.setWho("name"); //todo need to get it from settings
+
+        String name =  environment.getProperty("ServerName");
+        if(name == null) name = "DefaultName";
+        currentHistory.setWho(name);
 
         String path = dummyFileGenerator.GenerateDummyFiles(n,m);
         String result = listViewService.GetResult(path);
