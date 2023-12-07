@@ -1,9 +1,5 @@
-package com.example.filelistview.api.model;
-
-
+package com.example.filelistview.data;
 import jakarta.persistence.*;
-
-import java.util.Date;
 
 @Entity
 @Table(name = "history")
@@ -14,7 +10,7 @@ public class History {
     private String Who;
     private Integer FileNum;
     private Integer MistakeNum;
-    private Date RequestTime;
+    private long RequestTime;
     private String Result;
 
 
@@ -25,12 +21,12 @@ public class History {
     public void setWho(String who) {
         Who = who;
     }
-    public Date getRequestTime() {
+    public long getRequestTime() {
         return RequestTime;
     }
 
-    public void setRequestTime(Date RequestTime) {
-        RequestTime = RequestTime;
+    public void setRequestTime(long RequestTime) {
+        this.RequestTime = RequestTime;
     }
 
     public String getResult() {

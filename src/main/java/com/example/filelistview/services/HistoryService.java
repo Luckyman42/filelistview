@@ -1,7 +1,7 @@
 package com.example.filelistview.services;
 
-import com.example.filelistview.api.model.History;
-import com.example.filelistview.api.model.HistoryRepository;
+import com.example.filelistview.data.History;
+import com.example.filelistview.data.HistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

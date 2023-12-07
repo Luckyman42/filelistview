@@ -1,8 +1,8 @@
 package com.example.filelistview.services;
-
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Path;
+
 import java.util.Set;
 import java.util.stream.Stream;
 import java.io.IOException;
@@ -13,13 +13,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class ListViewService {
-
-    public String GenerateDummyFiles(Integer numbers, Integer mistakes){
-        String path = "";
-        //todo implement this
-        return path;
-    }
-
     private Set<String> GetFileNames(String path)  {
         try (Stream<Path> stream = Files.list(Paths.get(path))) {
             return stream

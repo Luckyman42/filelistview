@@ -1,4 +1,4 @@
-package com.example.filelistview.api.model;
+package com.example.filelistview.data;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
