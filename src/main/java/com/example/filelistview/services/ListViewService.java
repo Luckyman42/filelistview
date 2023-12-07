@@ -52,6 +52,7 @@ public class ListViewService {
     private String GeneratePrettyLine(int lineNum, String filename){
         StringBuilder sb = new StringBuilder();
         sb.append("\t".repeat(lineNum));
+        sb.append("->");
         sb.append(filename);
         sb.append("\n");
         return sb.toString();
@@ -87,6 +88,7 @@ public class ListViewService {
         prettyBuilder.append(NormalMistakeSeparator);
         for (String f : filenames){
             prettyBuilder.append(f);
+            prettyBuilder.append("\n");
         }
 
         return prettyBuilder.toString();
