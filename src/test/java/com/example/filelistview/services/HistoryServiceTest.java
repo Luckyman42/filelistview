@@ -3,8 +3,6 @@ package com.example.filelistview.services;
 import com.example.filelistview.data.History;
 import com.example.filelistview.data.HistoryRepository;
 import jakarta.annotation.Resource;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -22,7 +20,6 @@ class HistoryServiceTest {
     @Mock
     private HistoryRepository historyRepository;
 
-    // Testing instance, mocked `resource` should be injected here
     @InjectMocks
     @Resource
     private HistoryService historyService;
@@ -34,7 +31,7 @@ class HistoryServiceTest {
     private static final List<History> histories = new ArrayList<>();
 
     @BeforeEach()
-    public void setUp() throws Exception {
+    public void setUp() {
         history1.setWho("1");
         history2.setWho("2");
         history3.setWho("3");
@@ -42,9 +39,7 @@ class HistoryServiceTest {
         histories.add(history1);
         histories.add(history2);
         histories.add(history3);
-        // Initialize mocks created above
         MockitoAnnotations.openMocks(this);
-        // Change behaviour of `resource`
         Mockito.when(historyRepository.save(history)).then(h->{histories.add(history); return history;});
         Mockito.when(historyRepository.findAll()).thenReturn(histories);
     }

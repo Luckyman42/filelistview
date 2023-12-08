@@ -1,7 +1,6 @@
 package com.example.filelistview.services;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -21,11 +20,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class DummyFileGeneratorTest {
     DummyFileGenerator dummyFileGenerator;
 
-    private static final long Seed = 42;
-    private static final String NotRandomCharacters = "sbrbiyhsrcxljjhrmtuzxdlltykuedpifgvjeephtqocpctuaijfvakuzcsnmwhfypveqjjdjllqlsmymovadbvulthqfiezwmmo";
     @BeforeEach
     public void InitTest(){
-        dummyFileGenerator = new DummyFileGenerator(Seed);
+        dummyFileGenerator = new DummyFileGenerator();
     }
 
     private List<String> GetFileNames(String path)  {

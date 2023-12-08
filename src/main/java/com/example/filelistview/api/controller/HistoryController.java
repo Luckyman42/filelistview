@@ -2,7 +2,6 @@ package com.example.filelistview.api.controller;
 
 
 import com.example.filelistview.api.model.HistoryResponse;
-import com.example.filelistview.data.History;
 import com.example.filelistview.services.HistoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

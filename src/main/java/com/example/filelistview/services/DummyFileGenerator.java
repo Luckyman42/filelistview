@@ -13,23 +13,7 @@ import java.util.*;
  */
 @Service
 public class DummyFileGenerator {
-    private Random random;
 
-    /**
-     * Construct the DummyFileGenerator class, with random
-     */
-    public DummyFileGenerator(){
-        random = new Random();
-    }
-
-    /**
-     * Construct the DummyFileGenerator class, with fix random
-     * It's needed for test
-     * @param Seed is the seed for the random
-     */
-    public DummyFileGenerator(long Seed){
-        random = new Random(Seed);
-    }
     /**
      * Mark the folder for deletion
      * @param path Is the location of the folder
@@ -69,6 +53,7 @@ public class DummyFileGenerator {
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
         StringBuilder buffer = new StringBuilder(length);
+        Random random = new Random();
         for (int i = 0; i < length; i++) {
             int randomLimitedInt = leftLimit + (int) (random.nextFloat() * (rightLimit - leftLimit + 1));
             buffer.append((char) randomLimitedInt);
@@ -100,7 +85,7 @@ public class DummyFileGenerator {
         int length = (int) Math.ceil(Math.log(numbers + mistakes) / Math.log(26));
         if(length == 0) length = 1;
 
-        Set<String> filenames = new HashSet<String>();
+        Set<String> filenames = new HashSet<>();
         while(filenames.size() < numbers + mistakes) {
             filenames.add(GetRandomString(length) + ".txt");
         }
