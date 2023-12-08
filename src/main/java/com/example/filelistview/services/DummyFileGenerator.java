@@ -13,6 +13,14 @@ import java.util.*;
  */
 @Service
 public class DummyFileGenerator {
+    private Random random;
+
+    public DummyFileGenerator(){
+        random = new Random();
+    }
+    public DummyFileGenerator(long Seed){
+        random = new Random(Seed);
+    }
     /**
      * Mark the folder for deletion
      * @param path Is the location of the folder
@@ -51,7 +59,6 @@ public class DummyFileGenerator {
     private String GetRandomString(int length){
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
-        Random random = new Random();
         StringBuilder buffer = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
             int randomLimitedInt = leftLimit + (int) (random.nextFloat() * (rightLimit - leftLimit + 1));

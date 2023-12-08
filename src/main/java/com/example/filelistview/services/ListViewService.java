@@ -31,7 +31,7 @@ public class ListViewService {
      */
     private final String NormalMistakeSeparator = "Mistaken files: \n";
 
-    public Set<String> GetFileNames(String path)  {
+    private Set<String> GetFileNames(String path)  {
         try (Stream<Path> stream = Files.list(Paths.get(path))) {
             return stream
                     .filter(file -> !Files.isDirectory(file))
