@@ -18,7 +18,7 @@ import java.util.Date;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 
-@Tag(name = "File List View", description = "Get formatted string of a linear tree view")
+@Tag(name = "Files Linear Tree View", description = "Get formatted string of a linear tree view")
 @RestController
 public class ResultController {
     @Autowired

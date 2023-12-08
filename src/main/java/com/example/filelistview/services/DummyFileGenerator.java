@@ -1,21 +1,33 @@
 package com.example.filelistview.services;
 
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
-import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
+/**
+ * This Class is needed for generating example files for List Tree Views
+ * You can define how many good file-s you need and how many mistaken
+ * It can handle for deleting the template files when you don't need it anymore
+ */
 @Service
 public class DummyFileGenerator {
+    /**
+     * Mark the folder for deletion
+     * @param path Is the location of the folder
+     */
     public void DeleteDummyFiles(String path){
          new File(path).deleteOnExit();
     }
+
+    /**
+     * Create a file in a specific folder, with a parent and a children
+     * @param path The location of the file
+     * @param fileName The name of the file
+     * @param parent The parent of the file
+     * @param children The children of the file
+     */
     private void CreateFile(String path, String fileName, String parent, String children) {
         try {
             FileWriter fileWriter = new FileWriter(path + fileName);
@@ -31,6 +43,11 @@ public class DummyFileGenerator {
         }
     }
 
+    /**
+     * Get a random string with a specified length
+     * @param length The length of the string
+     * @return A string full of random alphabetical character
+     */
     private String GetRandomString(int length){
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
@@ -43,6 +60,12 @@ public class DummyFileGenerator {
         return  buffer.toString();
     }
 
+    /**
+     * It will generate the example files.
+     * @param numbers The number of the good files
+     * @param mistakes The number of the mistaken files
+     * @return A path to the temporary folder which contains those files.
+     */
     public String GenerateDummyFiles(Integer numbers, Integer mistakes) {
         String path;
         try {
