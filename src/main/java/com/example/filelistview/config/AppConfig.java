@@ -8,6 +8,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * This Configuration is expose the documentation, so if you see this message then its working!
+ */
 @Configuration
 public class AppConfig implements WebMvcConfigurer {
 

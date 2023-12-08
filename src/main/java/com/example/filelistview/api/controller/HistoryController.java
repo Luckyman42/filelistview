@@ -17,11 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This controller is for the Histories
+ */
 @Tag(name = "History", description = "History API management")
 @RestController
 public class HistoryController {
     @Autowired
     private HistoryService historyService;
+
+    /**
+     * This Get endpoints is for histories
+     * @return A list of history
+     */
     @Operation(
             summary = "Get History",
             description = "Give back all request all needed data, and responses.")

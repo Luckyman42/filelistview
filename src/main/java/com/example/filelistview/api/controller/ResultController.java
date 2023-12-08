@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-
+/**
+ * This controller is for the Result, the pretty print endpoints for the file list view
+ */
 @Tag(name = "Files Linear Tree View", description = "Get formatted string of a linear tree view")
 @RestController
 public class ResultController {
@@ -33,12 +35,17 @@ public class ResultController {
     @Autowired
     private Environment environment;
 
+    /**
+     * Endpoints for the pretty print
+     * @param n is the number of the correct files
+     * @param m is the number of the mistaken files
+     * @return A string which is formatted with \n \t.
+     */
     @Operation(
             summary = "Get Result",
             description = "Generate temporary files and then create a pretty view for its liner tree view")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = String.class)) }),
-     //       @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @GetMapping("result")
     public String GetResult (@RequestParam Integer n, @RequestParam Integer m){

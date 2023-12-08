@@ -15,9 +15,18 @@ import java.util.*;
 public class DummyFileGenerator {
     private Random random;
 
+    /**
+     * Construct the DummyFileGenerator class, with random
+     */
     public DummyFileGenerator(){
         random = new Random();
     }
+
+    /**
+     * Construct the DummyFileGenerator class, with fix random
+     * It's needed for test
+     * @param Seed is the seed for the random
+     */
     public DummyFileGenerator(long Seed){
         random = new Random(Seed);
     }
@@ -45,7 +54,7 @@ public class DummyFileGenerator {
             printWriter.close();
             printWriter.close();
         } catch (IOException e) {
-            System.out.println("Something went wrong with file creation");
+            System.out.println("[CreateFile] can't create a file | " + path + fileName +" | " );
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
@@ -74,11 +83,15 @@ public class DummyFileGenerator {
      * @return A path to the temporary folder which contains those files.
      */
     public String GenerateDummyFiles(Integer numbers, Integer mistakes) {
+        System.out.println("Dummy files creation started!");
         String path;
         try {
-            path = Files.createTempDirectory("generatedFiles").toFile().getAbsolutePath() + "\\";
-        }catch (java.io.IOException e){
-            return  "";
+            path = Files.createTempDirectory("generatedFiles").toFile().getAbsolutePath() + "/";
+            System.out.print("The temporary directory is: ");
+            System.out.println(path);
+        }catch (java.io.IOException e) {
+            System.out.println("Cannot create tmp directory");
+            return "";
         }
         if(numbers < 1 && mistakes < 1) {
             return path;
@@ -91,11 +104,8 @@ public class DummyFileGenerator {
         while(filenames.size() < numbers + mistakes) {
             filenames.add(GetRandomString(length) + ".txt");
         }
-        System.out.println(filenames);
         ArrayList<String> names = new ArrayList<>(filenames);
         Collections.shuffle(names);
-        System.out.println(names);
-
 
         if(numbers == 1) {
             CreateFile(path, names.get(0), "", "");
@@ -111,6 +121,8 @@ public class DummyFileGenerator {
             int c = (int)(Math.random() * ( numbers + mistakes - 1));
             CreateFile(path, names.get(numbers + i),names.get(p), names.get(c));
         }
+        System.out.println("files creation ended");
+        System.out.println(filenames);
         return path;
     }
 }

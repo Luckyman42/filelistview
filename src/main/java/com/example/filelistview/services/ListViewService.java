@@ -39,6 +39,10 @@ public class ListViewService {
                     .map(Path::toString)
                     .collect(Collectors.toSet());
         }catch (IOException e) {
+            System.out.println("[GetFileNames] Something unexpected happened!" );
+            System.out.println(e.getMessage());
+            System.out.println(e);
+            e.printStackTrace();
             return Collections.<String>emptySet();
         }
     }
@@ -114,9 +118,18 @@ public class ListViewService {
      * @since 1.0
      */
     public String GetResult(String path) {
+        System.out.println("Get result is started!");
+        System.out.print("The path is: ");
+        System.out.println(path);
         StringBuilder prettyBuilder = new StringBuilder();
         Set<String> filenames = GetFileNames(path);
+        System.out.println("Get the filenames");
+        System.out.println(filenames);
+
         String filename = GetFirstFileName(path, filenames);
+        System.out.print("The first file is: ");
+        System.out.println(filename);
+
         int fileNum = 0;
         while(filename != null){
             filenames.remove(filename);
@@ -129,7 +142,11 @@ public class ListViewService {
             prettyBuilder.append("\n");
         }
 
-        return prettyBuilder.toString();
+        String result =  prettyBuilder.toString();
+        System.out.println("The result is:");
+        System.out.println(result);
+
+        return result;
 
     }
 
