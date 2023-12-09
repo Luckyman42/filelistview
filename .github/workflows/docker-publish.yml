@@ -1,0 +1,76 @@
+name: Docker
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+on:
+  release:
+    types: [published]
+  push:
+    branches: [ "master" ]
+    tags: [ 'v*.*.*' ]
+
+#env:
+#  REGISTRY: docker.io/luckyman824/flatlistview
+#  IMAGE_NAME: ${{ github.repository }}
+
+
+jobs:
+ build-and-push-image:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dockerfile: ./db.DOCKERFILE
+            #image: ghcr.io/luckyman828/flatlistview:db
+            tags: luckyman824/flatlistview:db
+          - dockerfile: ./build.DOCKERFILE
+            #image: ghcr.io/luckyman828/flatlistview:builder
+            tags: luckyman824/flatlistview:builder
+          - dockerfile: ./app1.DOCKERFILE
+            #image: ghcr.io/luckyman828/flatlistview:app1
+            tags: luckyman824/flatlistview:app1
+          - dockerfile: ./app2.DOCKERFILE
+            #image: ghcr.io/luckyman828/flatlistview:app2
+            tags: luckyman824/flatlistview:app2
+  
+    permissions:
+      contents: read
+      packages: write
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+        #  registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+      
+#      - name: Extract metadata (tags, labels) for Docker
+#        id: meta
+#        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+#        with:
+#          images: ${{ matrix.image }}
+
+      - name: Build and push Docker image Drill4Net.Agent.Service
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          push: true
+          tags: ${{ matrix.tags }}
+#          labels: ${{ steps.meta.outputs.labels }}          
+
+#      - name: Extract Docker metadata
+ #       id: meta
+  #      uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
+   #     with:
+    #      images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+

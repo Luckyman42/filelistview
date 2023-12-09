@@ -31,15 +31,21 @@ if you want to run it locally then you need:
 - You need gradle (I use the version of 8.5.0)
 - And Java (I use the version 17)
 
-But it has a script (.sh and .bat) which makes you everything and only need `podman`.
-This script will:
-- create a DB
-- generate the javadoc
-- build the app
+## `localbuildrun` script
+But it has four a script (2 .sh and 2 .bat) which makes you everything and only need `podman`.
+The `localbuildrun` script:
+- create a DB container
+- create builder container
+  - generate the javadoc
+  - build the app
 - and start the app in 2 instance
   - localhost:8081
   - localhost:8082
 
+## `Run` script
+The `run` script use the docker hub registry so its only run the images?
+- run the db container
+- run the app in 2 instance
 
 # Endpoints
 
