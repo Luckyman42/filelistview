@@ -52,7 +52,7 @@ public class ResultController {
         History currentHistory =  new History();
         currentHistory.setRequestTime( new Date().getTime());
 
-        String name =  environment.getProperty("ServerName");
+        String name =  environment.getProperty("SERVER_NAME");
         if(name == null) name = "DefaultName";
         currentHistory.setWho(name);
 
