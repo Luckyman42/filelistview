@@ -12,30 +12,11 @@ on:
     branches: [ "master" ]
     tags: [ 'v*.*.*' ]
 
-#env:
-#  REGISTRY: docker.io/luckyman824/flatlistview
-#  IMAGE_NAME: ${{ github.repository }}
-
-
 jobs:
  build-and-push-image:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - dockerfile: ./db.DOCKERFILE
-            #image: ghcr.io/luckyman828/flatlistview:db
-            tags: luckyman824/flatlistview:db
-          - dockerfile: ./build.DOCKERFILE
-            #image: ghcr.io/luckyman828/flatlistview:builder
-            tags: luckyman824/flatlistview:builder
-          - dockerfile: ./app1.DOCKERFILE
-            #image: ghcr.io/luckyman828/flatlistview:app1
-            tags: luckyman824/flatlistview:app1
-          - dockerfile: ./app2.DOCKERFILE
-            #image: ghcr.io/luckyman828/flatlistview:app2
-            tags: luckyman824/flatlistview:app2
   
     permissions:
       contents: read
@@ -52,20 +33,20 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
       
-#      - name: Extract metadata (tags, labels) for Docker
-#        id: meta
-#        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-#        with:
-#          images: ${{ matrix.image }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: luckyman824/flatlistview
 
       - name: Build and push Docker image Drill4Net.Agent.Service
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
-          file: ${{ matrix.dockerfile }}
+          file:  ./Dockerfile
           push: true
-          tags: ${{ matrix.tags }}
-#          labels: ${{ steps.meta.outputs.labels }}          
+          tags: luckyman824/flatlistview
+          labels: ${{ steps.meta.outputs.labels }}          
 
 #      - name: Extract Docker metadata
  #       id: meta
